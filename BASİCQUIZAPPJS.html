@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Online Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <style>
+      #sonuc {
+        text-align: center;
+        font-size: large;
+        font-weight: 900;
+        color: white;
+
+
+      }
+      .card {
+        border: none;
+      }
+
+      .btn {
+        background-color: rgb(16, 93, 169);
+        color: white;
+      }
+
+      .btn:hover {
+        background-color: dodgerblue;
+      }
+     
+    </style>
+  </head>
+  <body style="background-color: cornflowerblue;">
+
+
+   <div class="container">
+      <div class="align-items-center justify-content-center d-flex vh-100">
+        <div id="sonuc"></div>
+        <div class="card w-100 " style="width: 18rem;" id="card">
+          <div class="card-header h5" id="soruAlani"></div>
+          <ul id="secenekler" class="list-group list-group-flush" >
+            <li class="list-group-item">
+                <input type="radio" name="x" value="A" class="cevapInput">
+                 <label id="inputA" class="cevap" ></label>
+            </li>
+            <li class="list-group-item">
+                <input type="radio" name="x" value="B" class="cevapInput">
+                <label id="inputB" class="cevap" for="cevapInput"></label>
+            </li>
+            <li class="list-group-item">
+                <input type="radio" name="x" value="C" class="cevapInput">
+                 <label id="inputC" class="cevap" for="cevapInput"></label>
+            </li>
+            <li class="list-group-item">
+                <input type="radio" name="x" value="D" class="cevapInput">
+                 <label id="inputD" class="cevap" for="cevapInput"></label>
+            </li>
+            <li class="list-group-item">
+                <input type="radio" name="x" value="E" class="cevapInput">
+                 <label id="inputE" class="cevap" for="cevapInput"></label>
+            </li>
+        </ul>
+          <button id="btn" class="btn">Sıradaki Soru</button>
+         
+        </div>
+        
+      </div>
+   </div>
+
+ 
+    <script>
+     
+            var questions = [  
+            {
+                soru: "Cumhurbaşkanı kaç yılda bir seçilir?",  
+                secenek: ['3', '7', '5', '1', '9'],
+                answer:'C'
+            },
+            {
+                soru: "Pisagor teoremi hangi bilim dalıyla ilgilidir ?",  
+                secenek: ['Matematik', 'Fizik', 'Kimya', 'Tarih', 'Edebiyat'],
+                answer:'A'
+            },
+            {
+                soru: "Türkiye’nin en yüksek dağı hangisidir ?",  
+                secenek: ['Ağrı Dağı', 'Süphan Dağı', 'Erciyes Dağı', 'Nemrut Dağı', 'Uludağ'],
+                answer:'A'
+            },
+            {
+                soru: "Amerika Birleşik Devletleri tarihi boyunca en büyük zaiyatı hangi savaşta vermiştir?",  
+                secenek: ['1.Dünya Savaşı', '2.Dünya Savaşı', 'Vietnam Savaşı', 'Irak Savaşı', 'Ukranya Savaşı'],
+                answer:'B'
+            },
+            {
+                soru: "Maddenin ölçülemeyen özelliği hangisidir ?",  
+                secenek: ['Ağırlığı', 'Uzunluğu', 'Hacmi', 'Koku', 'Kütle'],
+                answer:'D'
+            },
+            {
+                soru:  "Türkçe hangi dil grubuna girmektedir ?",    
+                secenek: ['Ural-Altay', 'Hami-Sami', 'Çin-Tibet', 'Hint-Avrupa', 'Tek Heceli'],
+                answer:'A'
+            },
+            {
+                soru:  "Kadınlara seçme ve seçilme hakkı tanıyan ilk ülke hangisidir ?",  
+                secenek: ['Mısır', 'Vietnam', 'Irak', 'İran', 'Türkiye'],
+                answer:'E'
+            },
+            {
+                soru: "2007 yılında Avrupa Birliğine giren ülkeler hangileridir ?",    
+                secenek: ['Bulgaristan-Romanya', 'İngiltire', 'Türkiye', 'İtalya', 'Fransa'],
+                answer:'A'
+            },
+            {
+                soru: "Telefonu kim icat etmiştir ?",  
+                secenek: ['Pisagor', 'Nikola Tesla', 'Alexander Graham Bell', 'Albert Einstein', 'Isacc Newton'],
+                answer:'A'
+            },
+            {
+                soru: "İnternet üzerinde en fazla kullanılan arama motoru hangisidir ?",  
+                secenek: ['yandex', 'google', 'yahoo!', 'bing', 'ecosia'],
+                answer:'B'
+            },
+            {
+                soru: "Gayda nedir ?",   
+                secenek: ['Telefon', 'İçecek', 'Müzik aleti', 'Sanatçı', 'Resim aleti'],
+                answer:'C'
+            },
+            {
+                soru: "En geniş ormanlık alana sahip bölgemiz hangisidir ?",  
+                secenek: ['Akdeniz', 'Ege', 'iç Anadolu', 'Karadeniz', 'Marmara'],
+                answer:'D'
+            }, 
+        ];
+
+        var index = 0;
+        var dogru = 0;
+        var yanlis = 0;
+        var bos = 0;
+        
+        var soruAlani = document.getElementById("soruAlani");
+        var inputA = document.getElementById("inputA");
+        var inputB = document.getElementById("inputB");
+        var inputC = document.getElementById("inputC");
+        var inputD = document.getElementById("inputD");
+        var inputE = document.getElementById("inputE");
+       
+        btn.addEventListener("click", function() {
+          var cevap = questions[index].answer;
+          var nodeList = document.querySelectorAll('input:checked');
+          var secilenCevap;
+          for (let i = 0; i < nodeList.length; i++) {
+            secilenCevap = nodeList[i].value;
+          }
+
+          if (secilenCevap === cevap) {
+            dogru++;
+          } else if (nodeList.length === 0) {
+            bos++;
+          } else {
+            yanlis++;
+          } 
+
+          index++;
+          if (index < questions.length) {
+            soruYukle();
+          } else {
+            sonucuGoster()
+          }
+
+          document.querySelectorAll('input').forEach(input => {
+            if (input.checked) {
+              input.checked = false;
+            } 
+          });
+
+        });
+
+
+
+        function soruYukle() {
+          soruAlani.textContent = questions[index].soru;
+          inputA.textContent = questions[index].secenek[0];
+          inputB.textContent = questions[index].secenek[1];
+          inputC.textContent = questions[index].secenek[2];
+          inputD.textContent = questions[index].secenek[3];
+          inputE.textContent = questions[index].secenek[4];
+        }
+        soruYukle();
+
+        function sonucuGoster() {
+          document.getElementById("card").style.display = "none";
+          sonuc.innerHTML = "Doğru: " + dogru + " " + " Yanlış: " + yanlis + " " + "Boş: " + bos;  
+        }
+
+
+    
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
+</html>
